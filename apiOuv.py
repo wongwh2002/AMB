@@ -3,6 +3,7 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 import apiFunc
+import json
 
 def main():
     scope = ["https://spreadsheets.google.com/feeds",'https://www.googleapis.com/auth/spreadsheets',"https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
@@ -20,6 +21,11 @@ def main():
 
     today = datetime.now().strftime('%#d/%#m/%y')
     myName = 'Wong Weng Hong'
+    with open('selfInfo.json', 'r') as file:
+        data = json.load(file)
+        myName = data['name']
+        row = data['row']
+        col = int(datetime.now().strftime('%#d')) + 1
 
     def findRow(data, start):
         if start > 2:
@@ -40,22 +46,15 @@ def main():
             if sheet.cell(1,i).value == item:
                 return i
 
-    with open('rowApi.txt', 'r') as file:
-        data = ''
-        for i in file:
-            data += i.strip('')
-        #print(f'Row Number: {data}')
-        row = int(data)
-        col = int(datetime.now().strftime('%#d')) + 1
-
     #checks
     def checks(dataDict, myName, row, col):
         if sheet.cell(row,2).value != myName:
             print('fk u row')
             myRow = apiFunc.findMe(dataDict, 'NAME', myName)
             row = findRow(dataDict, myRow)
-            with open('row.txt', 'w') as file:
-                file.write(str(row))
+            with open('selfInfo.json', 'w') as file:
+                data['row'] = row
+                json.dump(data,file)
 
         if sheet.cell(1, col).value != today:
             print('fk u col')

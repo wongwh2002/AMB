@@ -66,14 +66,17 @@ def main():
 
     today = datetime.now().strftime('%#d/%#m/%y')
     todate = int(datetime.now().strftime('%#d'))
-    myName = 'Wong Weng Hong'
+
+    with open('selfInfo.json', 'r') as file:
+        data = json.load(file)
+        myName = data['name']
 
     with open('rowAMB.json', 'r') as file:
         rowData = json.load(file)
         presentToday = []
+
     #checkRowData
     edit = False
-
     for i in rowData:
         currentData = sheet.cell(rowData[i],3).value
         if i not in currentData:
