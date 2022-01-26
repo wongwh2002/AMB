@@ -90,7 +90,6 @@ def main():
             json.dump(rowData, file)
             print('edited')
 
-    today = '4/1/22'
     #if user is present
     if checkPresence(dataDict, rowData[myName], myName, today):
         dataList = list(rowData.keys())
