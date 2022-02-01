@@ -13,7 +13,7 @@ PATH = "C:\Program Files (x86)\chromedriver.exe"
 options = webdriver.ChromeOptions()
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option("useAutomationExtension", False)
-#options.add_argument('headless') #Not open browser
+options.add_argument('headless') #Not open browser
 service = ChromeService(executable_path=PATH)
 driver = webdriver.Chrome(service=service, options=options)
 

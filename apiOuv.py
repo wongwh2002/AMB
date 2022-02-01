@@ -57,9 +57,13 @@ def main():
                 json.dump(data,file)
 
         if sheet.cell(1, col).value != today:
-            print('fk u col')
             col = findCol(dataDict, col, today)
 
-    checks(dataDict, myName, row, col)
+        return row, col
+
+    row, col = checks(dataDict, myName, row, col)
     sheet.update_cell(row, col, 'Y')
     print('DONE OUV GOOGLE SHEETS!')
+
+if __name__ == '__main__':
+    main()
